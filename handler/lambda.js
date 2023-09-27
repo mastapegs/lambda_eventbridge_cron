@@ -2,7 +2,7 @@ import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 
 const sns = new SNSClient({});
 
-exports.lambda = async function (event, context) {
+export const lambda = async function (event, context) {
   // Get the topic ARN from the environment variables.
   const topicArn = process.env.TOPIC_ARN;
 
