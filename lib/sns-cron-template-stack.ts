@@ -33,7 +33,7 @@ export class SnsCronTemplateStack extends Stack {
     });
 
     const rule3 = new aws_events.Rule(this, "TextMessagingRuleTest", {
-      schedule: aws_events.Schedule.cron({ hour: "18", minute: "50" }),
+      schedule: aws_events.Schedule.cron({ hour: "23", minute: "00" }),
     });
 
     // Create a Lambda function that is triggered by the EventBridge rule.
