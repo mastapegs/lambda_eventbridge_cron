@@ -41,8 +41,8 @@ export class SnsCronTemplateStack extends Stack {
       this,
       "TextMessagingLambda",
       {
-        runtime: aws_lambda.Runtime.NODEJS_LATEST,
-        handler: "handler/lambda.js",
+        runtime: aws_lambda.Runtime.PYTHON_3_9,
+        handler: "handler/lambda_handler.py",
         code: aws_lambda.Code.fromAsset("handler"),
       },
     );
