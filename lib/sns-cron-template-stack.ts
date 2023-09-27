@@ -13,14 +13,6 @@ export class SnsCronTemplateStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    new TextMessagingStack(this, "TextMessagingStack");
-  }
-}
-
-export class TextMessagingStack extends Stack {
-  constructor(scope: Stack, constructId: string, ...kwargs: any[]) {
-    super(scope, constructId, ...kwargs);
-
     // Create an SNS topic.
     const topic = new aws_sns.Topic(this, "TextMessagingTopic");
 
