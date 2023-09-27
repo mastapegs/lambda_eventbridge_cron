@@ -47,8 +47,8 @@ export class TextMessagingStack extends Stack {
       "TextMessagingLambda",
       {
         runtime: aws_lambda.Runtime.NODEJS_LATEST,
-        handler: "index.handler",
-        code: aws_lambda.Code.fromAsset("./lambda.js"),
+        handler: "handler.lambda",
+        code: aws_lambda.Code.fromAsset("handler"),
       },
     );
 
