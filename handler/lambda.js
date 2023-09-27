@@ -1,6 +1,6 @@
-const AWS = require("aws-sdk");
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 
-const sns = new AWS.SNS();
+const sns = new SNSClient({});
 
 exports.lambda = async function (event, context) {
   // Get the topic ARN from the environment variables.
@@ -12,12 +12,15 @@ exports.lambda = async function (event, context) {
   };
 
   // Publish the message to the topic.
-  const result = await sns
-    .publish({
-      TopicArn: topicArn,
-      Message: JSON.stringify(message),
-    })
-    .promise();
+  // const result = await sns
+  //   .publish({
+  //     TopicArn: topicArn,
+  //     Message: JSON.stringify(message),
+  //   })
+  //   .promise();
+  const result = await sns.send(
+    new PublishCommand({ Message: "Test Message", TopicArn: topicArn })
+  );
 
   // Log the result.
   console.log("Published message to topic:", result);
