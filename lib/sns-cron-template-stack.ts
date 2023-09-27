@@ -33,12 +33,15 @@ export class TextMessagingStack extends Stack {
 
     // Create an EventBridge rule that is scheduled to run twice a day.
     const rule1 = new aws_events.Rule(this, "TextMessagingRule9", {
-      // schedule: aws_events.Schedule.cron("0 0/12 * * *"),
       schedule: aws_events.Schedule.cron({ hour: "9", minute: "0" }),
     });
 
     const rule2 = new aws_events.Rule(this, "TextMessagingRule21", {
       schedule: aws_events.Schedule.cron({ hour: "21", minute: "0" }),
+    });
+
+    const rule3 = new aws_events.Rule(this, "TextMessagingRuleTest", {
+      schedule: aws_events.Schedule.cron({ hour: "18", minute: "50" }),
     });
 
     // Create a Lambda function that is triggered by the EventBridge rule.
@@ -61,7 +64,7 @@ export class TextMessagingStack extends Stack {
     );
 
     // Add a target to the EventBridge rule to trigger the Lambda function.
-    [rule1, rule2].map((rule) =>
+    [rule1, rule2, rule3].map((rule) =>
       rule.addTarget(new aws_events_targets.LambdaFunction(lambdaFunction))
     );
   }
