@@ -15,7 +15,6 @@ export const handler = async (
     new PublishCommand({
       Message: "Test Message",
       TopicArn: process.env.TOPIC_ARN,
-      PhoneNumber: "14013327084",
     }),
   );
 
