@@ -3,6 +3,7 @@ import {
   aws_events_targets,
   aws_iam,
   aws_lambda,
+  aws_lambda_nodejs,
   aws_sns,
   Stack,
   StackProps,
@@ -33,19 +34,27 @@ export class SnsCronTemplateStack extends Stack {
     });
 
     const rule3 = new aws_events.Rule(this, "TextMessagingRuleTest", {
-      schedule: aws_events.Schedule.cron({ hour: "23", minute: "20" }),
+      schedule: aws_events.Schedule.cron({ hour: "1", minute: "20" }),
     });
 
-    // Create a Lambda function that is triggered by the EventBridge rule.
-    const lambdaFunction = new aws_lambda.Function(
+    const lambdaFunction = new aws_lambda_nodejs.NodejsFunction(
       this,
-      "TextMessagingLambda",
+      "handler",
       {
-        runtime: aws_lambda.Runtime.PYTHON_3_9,
-        handler: "handler/lambda_handler.py",
-        code: aws_lambda.Code.fromAsset("handler"),
+        runtime: aws_lambda.Runtime.NODEJS_18_X,
       },
     );
+
+    // Create a Lambda function that is triggered by the EventBridge rule.
+    // const lambdaFunction = new aws_lambda.Function(
+    //   this,
+    //   "TextMessagingLambda",
+    //   {
+    //     runtime: aws_lambda.Runtime.NODEJS_LATEST,
+    //     handler: "handler/lambda.js",
+    //     code: aws_lambda.Code.fromAsset("handler"),
+    //   },
+    // );
 
     // Add a permission statement to the Lambda function to allow it to publish messages to the SNS topic.
     lambdaFunction.addToRolePolicy(
