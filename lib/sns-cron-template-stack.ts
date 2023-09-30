@@ -13,7 +13,14 @@ export class SnsCronTemplateStack extends Stack {
     super(scope, id, props);
 
     // Create an EventBridge rule that is scheduled to run twice a day.
-    const [rule1, rule2] = ["9", "21"].map((hour) =>
+    const EST_TO_UTC_OFFSET = 4;
+    const [rule1, rule2] = [9, 21].map((est_time) => {
+      const utc_time = (() => {
+        const add_offset = est_time + EST_TO_UTC_OFFSET;
+        return add_offset > 24 ? add_offset - 24 : add_offset;
+      })();
+      return utc_time.toString();
+    }).map((hour) =>
       new aws_events.Rule(this, `RuleForHour${hour}`, {
         schedule: aws_events.Schedule.cron({ hour, minute: "0" }),
       })
